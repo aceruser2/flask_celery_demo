@@ -5,10 +5,10 @@ from flask import request
 
 @flask_api.route("/hello")
 class Hello(Resource):
-    @flask_api.doc(security='apikey')
+    @flask_api.doc(security="apikey")
     def get(self):
-        if request.headers.get('X-API-KEY')!="apikey":
-            return {"hello":"error"} ,403
+        if request.headers.get("X-API-KEY") != "apikey":
+            return {"hello": "error"}, 403
         foreach.delay(100, 10)
         return {"hello": "done"}
 
