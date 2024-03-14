@@ -6,3 +6,5 @@ pip install "celery[librabbitmq,redis,auth,msgpack]"
 2. python main.py 
 
 3. celery -A task.for_task worker -l INFO
+
+flask --app main run --no-debugger --host 0.0.0.0
