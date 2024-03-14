@@ -21,4 +21,3 @@ class Rate(Base):
 @event.listens_for(Account.__table__, "after_create")
 def create_departments(tbl, conn, **kwargs):
     conn.execute(insert(tbl).values(user="organisation", pw="rrrr"))
-    conn.commit()

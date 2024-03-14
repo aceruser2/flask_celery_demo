@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
+from sqlalchemy import create_engine 
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.pool import NullPool
 
 engine = create_engine(
