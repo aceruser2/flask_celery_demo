@@ -11,6 +11,9 @@ class Hello(Resource):
             return {"hello":"error"} ,403
         foreach.delay(100, 10)
         return {"hello": "done"}
+    @flask_api.doc(False)
+    def post(self):
+        return {"hello": "done"}
 
 
 if __name__ == "__main__":
