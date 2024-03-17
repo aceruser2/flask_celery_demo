@@ -11,3 +11,5 @@ flask --app main run --no-debugger --host 0.0.0.0
 
 
 postgrel CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+https://www.advsyscon.com/blog/job-scheduling-with-flask/

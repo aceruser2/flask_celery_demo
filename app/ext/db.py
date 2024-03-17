@@ -5,7 +5,7 @@ from sqlalchemy.pool import NullPool
 engine = create_engine(
     "postgresql://user:password@0.0.0.0:5432/postgresserver",
     query_cache_size=1200,
-    echo=True,
+    echo=False,
     poolclass=NullPool,
     future=True,
 )

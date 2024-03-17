@@ -5,6 +5,8 @@ from app.ext.db import engine
 from sqlalchemy import insert
 from app.models import Base, Account, Rate
 from flask_restx import reqparse, fields
+from flask import Response, stream_with_context
+from app.ext.log import logger
 
 Base.metadata.create_all(bind=engine)
 
@@ -27,9 +29,10 @@ class Hello(Resource):
             return {"hello": "error"}, 403
         foreach.delay(100, 10)
         return {"hello": "done"}
-    @flask_api.doc(False)
-    def post(self):
-        return {"hello": "done"}
+
+    # @flask_api.doc(False)
+    # def post(self):
+    #     return {"hello": "done"}
 
     @ns.expect(rate)
     @ns.marshal_with(rate, code=201)
@@ -42,11 +45,27 @@ class Hello(Resource):
                 print(type(data["rate"]))
                 stmt = insert(Rate).values(rate=int(data["rate"]))
                 result = con.execute(stmt)
-                print("数据插入成功！插入的记录ID为:", result.inserted_primary_key)
+                print("ID為:", result.inserted_primary_key)
                 con.commit()
                 return {"rate": data["rate"]}
         except Exception as e:
-            print(e)
+            logger.error(e)
+
+
+@flask_api.route("/stream")
+class Strem(Resource):
+    def get(self):
+        def generate():
+            for i in range(10):
+                yield str(i) + "\n"
+
+        return Response(stream_with_context(generate()), content_type="text/plain")
+
+    def post(self):
+        try:
+            return {"hello": "done"}
+        except Exception as e:
+            logger.error("test")
 
 
 if __name__ == "__main__":
